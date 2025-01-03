@@ -66,8 +66,12 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  );
 }
 
 /**
@@ -109,8 +113,14 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  if (num >= 10) return `X${convertToRomanNumerals(num - 10)}`;
+  if (num >= 9) return `IX${convertToRomanNumerals(num - 9)}`;
+  if (num >= 5) return `V${convertToRomanNumerals(num - 5)}`;
+  if (num >= 4) return `IV${convertToRomanNumerals(num - 4)}`;
+  if (num >= 1) return `I${convertToRomanNumerals(num - 1)}`;
+
+  return '';
 }
 
 /**
@@ -214,8 +224,23 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  const len = arr.length;
+
+  for (let i = 0; i < len; i += 1) {
+    let leftSum = 0;
+    let rightSum = 0;
+    for (let j = 0; j < i; j += 1) {
+      leftSum += arr[j];
+    }
+    for (let j = i + 1; j < len; j += 1) {
+      rightSum += arr[j];
+    }
+    if (leftSum === rightSum) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -258,8 +283,26 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const len = matrix.length;
+  const number = matrix;
+  const arr = [];
+
+  for (let i = 0; i < len; i += 1) {
+    arr[i] = [];
+  }
+
+  for (let i = 0; i < len; i += 1) {
+    for (let j = 0; j < len; j += 1) {
+      arr[j][len - 1 - i] = number[i][j];
+    }
+  }
+
+  for (let i = 0; i < len; i += 1) {
+    number[i] = arr[i];
+  }
+
+  return number;
 }
 
 /**
@@ -291,7 +334,7 @@ function sortByAsc(/* arr */) {
  *
  * @example:
  *  '012345', 1 => '024135'
- *  'qwerty', 1 => 'qetwry'
+ *  'qwerty', 1 => 'qetwry.ю'
  *  '012345', 2 => '024135' => '043215'
  *  'qwerty', 2 => 'qetwry' => 'qtrewy'
  *  '012345', 3 => '024135' => '043215' => '031425'
