@@ -319,8 +319,49 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const len = arr.length;
+  const number = arr;
+
+  if (len <= 1) {
+    return number;
+  }
+
+  const middleIndex = Math.floor(len / 2);
+  const middle = arr[middleIndex];
+
+  const small = [];
+  const big = [];
+
+  for (let i = 0; i < len; i += 1) {
+    if (i !== middleIndex) {
+      if (number[i] < middle) {
+        small[small.length] = number[i];
+      } else {
+        big[big.length] = number[i];
+      }
+    }
+  }
+
+  const sortedSmall = sortByAsc(small);
+  const sortedBig = sortByAsc(big);
+
+  const result = [];
+  for (let i = 0; i < sortedSmall.length; i += 1) {
+    result[result.length] = sortedSmall[i];
+  }
+
+  result[result.length] = middle;
+
+  for (let i = 0; i < sortedBig.length; i += 1) {
+    result[result.length] = sortedBig[i];
+  }
+
+  for (let i = 0; i < len; i += 1) {
+    number[i] = result[i];
+  }
+
+  return number;
 }
 
 /**
@@ -334,7 +375,7 @@ function sortByAsc(/* arr */) {
  *
  * @example:
  *  '012345', 1 => '024135'
- *  'qwerty', 1 => 'qetwry.ю'
+ *  'qwerty', 1 => 'qetwry'
  *  '012345', 2 => '024135' => '043215'
  *  'qwerty', 2 => 'qetwry' => 'qtrewy'
  *  '012345', 3 => '024135' => '043215' => '031425'
