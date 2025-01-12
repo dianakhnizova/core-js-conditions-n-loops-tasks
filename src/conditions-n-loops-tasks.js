@@ -423,24 +423,23 @@ function sortByAsc(arr) {
 function shuffleChar(str, iterations) {
   const n = str.length;
   let str2 = str;
+
   for (let i = 0; i < iterations; i += 1) {
-    const even = [];
-    const odd = [];
+    let even = '';
+    let odd = '';
     for (let j = 0; j < n; j += 1) {
       if (j % 2 === 0) {
-        even[even.length] = str2[j];
+        even += str2[j];
       } else {
-        odd[odd.length] = str2[j];
+        odd += str2[j];
       }
     }
-    str2 = '';
-    for (let j = 0; j < even.length; j += 1) {
-      str2 += even[j];
-    }
-    for (let j = 0; j < odd.length; j += 1) {
-      str2 += odd[j];
+    str2 = even + odd;
+    if (str2 === str) {
+      i = Math.trunc(iterations / (i + 1)) * (i + 1) - 1;
     }
   }
+
   return str2;
 }
 
