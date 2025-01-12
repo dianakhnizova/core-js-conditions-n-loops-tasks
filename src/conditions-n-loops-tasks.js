@@ -225,20 +225,20 @@ function isContainNumber(num, digit) {
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
 function getBalanceIndex(arr) {
-  const len = arr.length;
+  const n = arr.length;
+  let totalSum = 0;
+  for (let i = 0; i < n; i += 1) {
+    totalSum += arr[i];
+  }
 
-  for (let i = 0; i < len; i += 1) {
-    let leftSum = 0;
-    let rightSum = 0;
-    for (let j = 0; j < i; j += 1) {
-      leftSum += arr[j];
-    }
-    for (let j = i + 1; j < len; j += 1) {
-      rightSum += arr[j];
-    }
+  let leftSum = 0;
+  let rightSum = totalSum;
+  for (let i = 0; i < n; i += 1) {
+    rightSum -= arr[i];
     if (leftSum === rightSum) {
       return i;
     }
+    leftSum += arr[i];
   }
   return -1;
 }
@@ -420,8 +420,24 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  const n = str.length;
+  const iter = iterations % n;
+  let str2 = str;
+  for (let i = 0; i < iter; i += 1) {
+    let even = '';
+    let odd = '';
+    for (let j = 0; j < n; j += 1) {
+      if (j % 2 === 0) {
+        even += str[j];
+      } else {
+        odd += str[j];
+      }
+    }
+    str2 = even + odd;
+  }
+
+  return str2;
 }
 
 /**
