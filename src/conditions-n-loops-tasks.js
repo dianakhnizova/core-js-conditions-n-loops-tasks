@@ -139,31 +139,45 @@ function convertToRomanNumerals(num) {
  *  '1950.2'  => 'one nine five zero point two'
  */
 function convertNumberToString(numberStr) {
-  const digitToWord = {
-    '-': 'minus',
-    '.': 'point',
-    ',': 'point',
-    0: 'zero',
-    1: 'one',
-    2: 'two',
-    3: 'three',
-    4: 'four',
-    5: 'five',
-    6: 'six',
-    7: 'seven',
-    8: 'eight',
-    9: 'nine',
+  const fn = (symbol) => {
+    switch (symbol) {
+      case '-':
+        return 'minus';
+      case '.':
+      case ',':
+        return 'point';
+      case '0':
+        return 'zero';
+      case '1':
+        return 'one';
+      case '2':
+        return 'two';
+      case '3':
+        return 'three';
+      case '4':
+        return 'four';
+      case '5':
+        return 'five';
+      case '6':
+        return 'six';
+      case '7':
+        return 'seven';
+      case '8':
+        return 'eight';
+      case '9':
+        return 'nine';
+      default:
+        return '';
+    }
   };
-
-  let result = '';
-  let i = 0;
-
-  while (numberStr[i]) {
-    if (result !== '') result += ' ';
-    result += digitToWord[numberStr[i]];
-    i += 1;
+  let str2 = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    str2 += fn(numberStr[i]);
+    if (i < numberStr.length - 1) {
+      str2 += ' ';
+    }
   }
-  return result;
+  return str2;
 }
 
 /**
